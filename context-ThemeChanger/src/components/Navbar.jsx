@@ -18,7 +18,7 @@ const Navbar = () => {
   return (
     <div className="flex justify-center h-8">
         <div className="flex items-center gap-1">
-            <input type="checkbox" name="" id="check" checked={theme=== 'dark'} onChange={onChangeHandle} />
+            <input type="checkbox" name="" id="check" checked={theme=='dark'} onChange={onChangeHandle} />
             <label htmlFor="check">ToggleTheme</label>
         </div>
     </div>

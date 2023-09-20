@@ -1,6 +1,6 @@
 import {createContext, useEffect, useState} from "react";
 
-export const ThemeContext =  createContext()
+export const ThemeContext =  createContext();
 
 // eslint-disable-next-line react/prop-types
 const ThemeProvider = ({children})=>{
