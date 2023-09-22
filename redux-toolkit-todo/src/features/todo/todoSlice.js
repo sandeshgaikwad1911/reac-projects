@@ -6,8 +6,8 @@ const initialState = {
     // this todos will be shown inside Redux-Devtools .. inside reducer name
     todos: [
         {
-            id: nanoid(),
-            text: 'redux-toolkit',
+            id: "",
+            text: "",
             isCompleted: false
         }
     ]
@@ -22,8 +22,8 @@ const todoSlice = createSlice({
 
             const todo = {
                 id: nanoid(),
+                isCompleted: false,
                 text: action.payload,
-                isCompleted: false
             }// this is the structure of our initialState
             state.todos.push(todo)
         },
@@ -33,11 +33,17 @@ const todoSlice = createSlice({
         },
 
         updateTodo: (state, action)=>{
+            // console.log('action', action)
             state.todos = state.todos.map((eachTodo)=> eachTodo.id === action.payload.id ? action.payload : eachTodo )
+        },
+
+        toggleComplete: (state, action)=>{
+            console.log('action', action)
+            state.todos = state.todos.map((prevTodo)=> prevTodo.id === action.payload.id ? ({...prevTodo, isCompleted: !prevTodo?.isCompleted }) : prevTodo);
         }
     }
 })
-export const {addTodo, removeTodo} = todoSlice.actions      // this will be used in components
+export const {addTodo, removeTodo, updateTodo, toggleComplete} = todoSlice.actions      // this will be used in components
 export default todoSlice.reducer                            // this is used in store.js
 
 
