@@ -13,9 +13,17 @@ export const fetchDataFromApi = async(url, params)=>{
             headers,
             params,
         });
-        // console.log('res=>', res)
+        // console.log('api.js res=>', res);
         return res?.data;
     } catch (error) {
        console.log('api error', error) 
     }
 }
+
+/* 
+        from here we return data means we return promise...
+
+        here, we are not storing the data into state.. to change our component state.
+
+        with the change of url we have different promise;
+ */

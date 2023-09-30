@@ -4,28 +4,38 @@ import './style.scss'
 import { useEffect, useState } from 'react'
 
 import { useFetch } from '../../../hooks/useFetch';
+import { useSelector } from 'react-redux';
+
+import ContentWrapper from '../../../components/contentWrapper/ContentWrapper'
 
 const Banner = () => {
 
-  const [background, setBackground] = useState("");
-  console.log('Banner=>background', background);
+  const [backgroundImg, setBackgroundImg] = useState("");
   
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
 
+ const {url} = useSelector((state)=>state.home);
+//  console.log(url.backdrop);
+
   const {data, loading} = useFetch('/movie/upcoming');
   // https://api.themoviedb.org/3/movie/upcoming
-
   console.log('Banner=>data', data?.results);
-
+  
 
   useEffect(()=>{
     // const bg = data?.results[0]?.backdrop_path;     // return backdrop_path of first element of array
         // we want.. backdrop_path of any random elelment..
-    const bg = data?.results[Math.floor(Math.random() * data?.results.length)]?.backdrop_path
-    // console.log('bg',bg)
-    setBackground(bg);
-  },[data]);
+        // const imgUrl = data?.results[Math.floor(Math.random() * data?.results.length)]?.backdrop_path
+        // console.log('BannerbgImgUrl',imgUrl);
+
+        //  we stored first two part of completeUrl inside store
+        const imgCompleteUrl =  url?.backdrop + data?.results[Math.floor(Math.random() * data?.results.length)]?.backdrop_path
+        // console.log('BannerBgImgCompleteUrl=>', imgCompleteUrl);
+
+      setBackgroundImg(imgCompleteUrl);
+
+  },[data, url?.backdrop]);
 
   const searchQueryHandler = (e)=>{
     if(e.key === "Enter" && query.length > 0){
@@ -37,7 +47,7 @@ const Banner = () => {
   return (
     <div className='banner' >
 
-      <div className="wrapper">
+      <ContentWrapper>
 
           <div className="bannerContent">
 
@@ -53,7 +63,7 @@ const Banner = () => {
 
           </div>
 
-      </div>
+      </ContentWrapper>
 
     </div>
   )

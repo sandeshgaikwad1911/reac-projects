@@ -10,15 +10,15 @@ export const useFetch = (url) => {
 
         setLoading("loading...");
 
-        fetchDataFromApi(url)
+        fetchDataFromApi(url)       // this method returns promise created at utils/api.jsx
             .then((res) => {
-                console.log('useFetch', res);
+                // console.log('useFetch', res);
                 setData(res);
                 setLoading(false);
                 setError(null)
             })
             .catch((err) => {
-                console.log('useFetch error',err)
+                console.log('useFetch error',err);
                 setLoading(false);
                 setError("Something went wrong!");
             });
