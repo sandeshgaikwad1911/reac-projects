@@ -1,12 +1,14 @@
 /* eslint-disable no-unused-vars */
-import { useNavigate } from 'react-router-dom';
 import './style.scss'
-import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 import { useFetch } from '../../../hooks/useFetch';
 import { useSelector } from 'react-redux';
 
-import ContentWrapper from '../../../components/contentWrapper/ContentWrapper'
+import ContentWrapper from '../../../components/contentWrapper/ContentWrapper';
+import LazyImg from '../../../components/lazyLoadImages/LazyImg'
+
 
 const Banner = () => {
 
@@ -45,28 +47,42 @@ const Banner = () => {
   }
 
   return (
-    <div className='banner' >
+    <div className="heroBanner">
 
-      <ContentWrapper>
+            {!loading && (
+                <div className="backdrop-img">
+                    <LazyImg src={backgroundImg} />
+                </div>
+            )}
 
-          <div className="bannerContent">
+            <div className="opacity-layer"></div>
 
-              <span className="title">Welcome</span>
-              <span className="subTitle">Hundreds of movies,Tv shows</span>
-              <div className="searchInput">
-                <input type="text" placeholder="Search for a movie or TV show"
-                  onChange={(e)=>setQuery(e.target.value)}
-                  onKeyUp={searchQueryHandler}
-                />
-                <button>Search</button>
-              </div>
+            <ContentWrapper>
+                <div className="heroBannerContent">
 
-          </div>
-
-      </ContentWrapper>
-
-    </div>
+                    <span className="subTitle">Laughter. Tears. Thrills. Find it all on</span>
+                    <span className="title">MovieX.</span>
+                    <div className="searchInput">
+                        <input
+                            type="text"
+                            placeholder="Search for a movie or tv show...."
+                            onChange={(e) => setQuery(e.target.value)}
+                            onKeyUp={searchQueryHandler}
+                        />
+                        <button>Search</button>
+                    </div>
+                    
+                </div>
+            </ContentWrapper>
+        </div>
   )
 }
 
-export default Banner
+export default Banner;
+
+/* 
+    images wll be loaded lazy so... we have created LazyImg componenet which retruns 
+    LazyLoadImage from 'react-lazy-load-image-component' library
+        import { LazyLoadImage } from "react-lazy-load-image-component";
+
+ */
