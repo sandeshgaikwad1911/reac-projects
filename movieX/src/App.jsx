@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useEffect } from "react";
-import "./App.scss";
+// import "./App.scss";
 import { fetchDataFromApi } from "./utils/api";
 import { useDispatch } from "react-redux";
 import { getApiConfiguration } from "./features/home/homeSlice";
@@ -61,7 +61,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {/* <Header/> */}
+      <Header/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:mediaType/:id" element={<Details />} />

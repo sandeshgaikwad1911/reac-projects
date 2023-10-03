@@ -46,6 +46,11 @@ const Banner = () => {
     }
   }
 
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+    navigate(`/search/${query}`);
+  }
+
   return (
     <div className="heroBanner">
 
@@ -56,24 +61,27 @@ const Banner = () => {
             )}
 
             <div className="opacity-layer"></div>
-
+          
             <ContentWrapper>
                 <div className="heroBannerContent">
 
                     <span className="subTitle">Laughter. Tears. Thrills. Find it all on</span>
                     <span className="title">MovieX.</span>
-                    <div className="searchInput">
+                    <form className="searchInput" onSubmit={handleSubmit}>
                         <input
                             type="text"
-                            placeholder="Search for a movie or tv show...."
+                            placeholder="Search for a movies or tv shows...."
                             onChange={(e) => setQuery(e.target.value)}
                             onKeyUp={searchQueryHandler}
                         />
-                        <button>Search</button>
-                    </div>
-                    
+                        <button type='submit'>Search</button>
+                    </form>
+
                 </div>
             </ContentWrapper>
+
+            
+
         </div>
   )
 }
