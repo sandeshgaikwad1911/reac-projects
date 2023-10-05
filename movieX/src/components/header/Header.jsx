@@ -10,22 +10,29 @@ import ContentWrapper from "../contentWrapper/ContentWrapper";
 import Logo from "../../images/movix-logo.svg";
 
 const Header = () => {
-  const [show, setShow] = useState("top");
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [mobileMenu, setMobileMenu] = useState(false);
-  const [query, setQuery] = useState("");
-  const [showSearch, setShowSearch] = useState("");
-  const navigate = useNavigate();
-  const location = useLocation();
 
-  const openSearch = () => {
-    setMobileMenu(false);
-    setShowSearch(true);
-  };
+  const [show, setShow] = useState("top");
+
+  const [query, setQuery] = useState("");
+
+  const [mobileMenu, setMobileMenu] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+
+  const navigate = useNavigate();
+
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  const {pathname} = useLocation();
+  
 
   const openMobileMenu = () => {
     setMobileMenu(true);
     setShowSearch(false);
+  };
+
+  const openSearch = () => {
+    setShowSearch(true);
+    setMobileMenu(false);
   };
 
   const searchQueryHandler = (event) => {
@@ -35,8 +42,36 @@ const Header = () => {
     }
 };
 
+const handleNavigation = (mediaType)=>{
+  if(mediaType ==="movie"){
+    navigate("/explore/movie");
+  }
+  else{
+    navigate("/explore/tv");
+  }
+  setMobileMenu(false);
+};
+
+
 const navbarControl = ()=>{
-  console.log(window.scrollY);
+  // console.log(window.scrollY);
+
+  if(window.scrollY > 190){
+    // setShow("show")
+
+        if(window.scrollY > lastScrollY && !mobileMenu){
+          setShow("hide")
+        }
+        else{
+          setShow('show');
+        }
+  }
+
+  else{
+    setShow("top");
+  }
+
+  setLastScrollY(window.scrollY);
 }
 
 useEffect(()=>{
@@ -44,7 +79,12 @@ useEffect(()=>{
   return ()=>{
     window.removeEventListener("scroll", navbarControl)
   }
-},[lastScrollY]);
+},[lastScrollY],);
+
+// when url change we navigate to differen page. so that page should open from top
+useEffect(() => {
+  window.scrollTo(0, 0);
+},[pathname]);
 
   return (
     <header className={`header ${mobileMenu ? "mobileView" : ""} ${show}`}>
@@ -55,8 +95,8 @@ useEffect(()=>{
         </div>
 
         <ul className="menuItems">
-          <li className="menuItem">Movies</li>
-          <li className="menuItem">Tv Shows</li>
+          <li className="menuItem" onClick={()=>{handleNavigation("movie")}}>Movies</li>
+          <li className="menuItem" onClick={()=>{handleNavigation("tv")}}>Tv Shows</li>
           <li className="menuItem">
             <HiOutlineSearch onClick={openSearch}/>
           </li>

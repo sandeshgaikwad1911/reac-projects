@@ -5,22 +5,27 @@
     top: 0;
     width: 100%;
     transform: translateY(0);
+    transition: all 1s ease-in-out;
 
     height: 50px;
     display: flex;
     align-items: center;
-    // transition: all ease 0.5s;
     z-index: 2;
+
     &.top {
         background: rgba(0, 0, 0, 0.25);
         backdrop-filter: blur(3.5px);
         -webkit-backdrop-filter: blur(3.5px);
     }
+
     &.show {
         background-color: var(--black3);
+        transition: all 1s ease-in-out;
     }
+
     &.hide {
         transform: translateY(-50px);
+        transition: all 1s ease-in-out;
     }
 
     .contentWrapper {
@@ -57,7 +62,7 @@
             }
             cursor: pointer;
             &:hover {
-                color: var(--pink);
+                color: var(--orange);
             }
         }
     }
@@ -87,7 +92,6 @@
             width: 100%;
             padding: 20px 0;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            animation: mobileMenu 0.3s ease forwards;
             .menuItem {
                 font-size: 20px;
                 width: 100%;
@@ -110,7 +114,6 @@
         background-color: white;
         position: absolute;
         top: 50px;
-        animation: mobileMenu 0.3s ease-in-out forwards;
         .searchInput {
             display: flex;
             align-items: center;
@@ -125,11 +128,10 @@
             }
             input {
                 width: 100%;
-                height: 50px;
+                height: 40px;
                 background-color: white;
-                outline: 0;
-                border: 0;
-                border-radius: 30px 0 0 30px;
+                outline: none;
+                border: none;
                 padding: 0 15px;
                 font-size: 14px;
                 @include md {
@@ -142,11 +144,3 @@
     }
 }
 
-@keyframes mobileMenu {
-    0% {
-        transform: translateY(-130%);
-    }
-    100% {
-        transform: translateY(0);
-    }
-}
