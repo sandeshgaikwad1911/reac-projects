@@ -22,7 +22,7 @@ const Banner = () => {
 
   const {data, loading} = useFetch('/movie/upcoming');
   // https://api.themoviedb.org/3/movie/upcoming
-  console.log('Banner=>data', data?.results);
+  // console.log('Banner=>data', data?.results);
   
 
   useEffect(()=>{
