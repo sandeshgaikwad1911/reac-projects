@@ -4,7 +4,7 @@ import { useEffect } from "react";
 // import "./App.scss";
 import { fetchDataFromApi } from "./utils/api";
 import { useDispatch } from "react-redux";
-import { getApiConfiguration } from "./features/home/homeSlice";
+import { getApiConfiguration, getGenres } from "./features/home/homeSlice";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -58,6 +58,47 @@ function App() {
   useEffect(() => {
     apiConfig();
   }, []);
+
+  // -------------------------------------------------------------------------------------
+
+  const genresCall = async()=>{
+    let promises = [];
+    let endpoints = ["tv", "movie"];
+    let allGenres = {};
+
+    /*  
+        https://api.themoviedb.org/3/genre/movie/list
+        https://api.themoviedb.org/3/genre/tv/list
+    */
+
+    endpoints.forEach((url)=>{
+      promises.push(fetchDataFromApi(`/genre/${url}/list`));
+    });
+
+      try {
+            const data = await Promise.all(promises);
+          // console.log('GenresData', data)
+
+          data?.map((Genres)=>{
+            // console.log('gen',genres);
+            return Genres?.genres.map((item)=>{allGenres[item.id] = item })
+          })
+
+          // console.log('allGenres',allGenres)
+
+          dispatch(getGenres(allGenres));
+
+      } catch (error) {
+        console.log('genresError', error)
+      }
+
+  }
+
+  useEffect(()=>{
+    genresCall();
+  },[])
+
+  
 
   return (
     <BrowserRouter>

@@ -1,8 +1,24 @@
+/* eslint-disable react/prop-types */
+import { useSelector } from 'react-redux';
 import './style.scss'
 
-const Genres = () => {
+const Genres = ({data}) => {
+  // console.log('Genres.jsx', data);
+  const {genres} = useSelector((state)=>state.home);
+
   return (
-    <div>Genres</div>
+    <div className='genres'>
+      {
+        data?.map((g)=>{
+          if(!genres[g]?.name) return;
+          return(
+            <div key={g} className='genre'>
+              {genres[g]?.name}
+            </div>
+          )
+        })
+      }
+    </div>
   )
 }
 

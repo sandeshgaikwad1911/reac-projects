@@ -18,7 +18,7 @@ const Trending = () => {
   // console.log('data',data);
 
   const onTabChange = (tab)=>{
-    setEndpoint(tab === 'day' ? "day" : "week");
+    setEndpoint(tab === 'Day' ? "day" : "week");
   }
   // onTabChnage => (tab) is from SwitchTab.jsx.. sending data from child to parent
   
@@ -26,7 +26,7 @@ const Trending = () => {
     <div className="carouselSection">
       <ContentWrapper>
         <span className="carouselTitle">Trending</span>
-        <SwitchTabs data={["day", "week"]} onTabChange={onTabChange}/>
+        <SwitchTabs data={["Day", "Week"]} onTabChange={onTabChange}/>
       </ContentWrapper>
       <Carousel data={data?.results} loading={loading}/>
     </div>
