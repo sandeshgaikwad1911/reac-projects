@@ -14,21 +14,22 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-const Carousel = ({ data, loading }) => {
+const Carousel = ({ data, loading, endpoint }) => {
   // console.log("CarouselData", data);
 
-  const carouselSliding = useRef();
   const navigate = useNavigate();
+
+  const carouselSliding = useRef();
 
   const navigation = (direction)=>{
     const sliding = carouselSliding.current
-    // console.log('slidign', sliding);  each carousel card
-    const scrollAmout = direction === "left" ? sliding.scrollLeft - (sliding.offsetWidth + 20) : sliding.scrollLeft + (sliding.offsetWidth + 20);
-    // 
+    // console.log('slidign', sliding);
+    const scrollAmount = direction === "left" ? sliding.scrollLeft - (sliding.offsetWidth + 20) : sliding.scrollLeft + (sliding.offsetWidth + 20);
     sliding.scrollTo({
-      left: scrollAmout,
+      left: scrollAmount,
       behavior: 'smooth'
-    })
+    });
+
   }
 
   const {url} = useSelector((state)=>state.home);
@@ -68,7 +69,7 @@ const Carousel = ({ data, loading }) => {
                     const posterUrl = item?.poster_path ? url.poster + item?.poster_path : PosterFallbackImg;
                     return(
                       <div className="carouselItem" key={item?.id}
-                      onClick={() =>navigate(`/${item.media_type}/${item.id}`)}
+                      onClick={() =>navigate(`/${item.media_type || endpoint }/${item.id}`)}
                       >
                         <div className="posterBlock">
                           <LazyImg src={posterUrl}/>
